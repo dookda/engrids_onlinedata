@@ -89,12 +89,7 @@ $(document).ready(function () {
     // console.log(new Date(date).toLocaleDateString('th-TH'));
 
     let number2 = 1234.56789; // floating point example
-
-    // console.log(number2.toLocaleString('en-US', { maximumFractionDigits: 2 }));
-    // $('#navbar').css('')
 })
-
-
 
 let valCategorys = []
 let load_data = (page) => {
@@ -329,8 +324,6 @@ let load_data = (page) => {
                         var dta = a[0]
                         arrfileform.push(dta)
                     }
-
-
                 }
                 // else if (Fileform) {
                 //     var arr = JSON.parse(i.d_datafiles)
@@ -510,7 +503,6 @@ let genCategory = (data) => {
     }
 }
 
-
 function onlyUnique(value, index, self) {
     return self.indexOf(value) === index;
 }
@@ -588,39 +580,7 @@ let genFileformat = (data) => {
                 })
             })
         }
-        // if (!Fileform) {
-        // } else {
-        //     if (i.Files) {
-        //         var f = i.Files
-        //         f.map(e => {
-        //             var type = e.type
-        //             if (type.match(Fileform)) {
-        //                 arr.push(type)
-        //             }
-        //         })
-        //     } else if (i.Links) {
-        //         var l = i.Links
-        //         l.map(e => {
-        //             var type = e.type
-        //             if (type.match(Fileform)) {
-        //                 arr.push(type)
-        //             }
-        //         })
-        //     }
-        // }
     })
-    // if (arrFiles.length > 0) {
-    //     Files.map(e => {
-    //         var filter = arrFiles.filter(i => i == e)
-    //         arr1.push({ category: e, value: filter.length })
-    //     })
-    // }
-    // if (arrLinks.length > 0) {
-    //     Links.map(e => {
-    //         var filter = arrLinks.filter(i => i == e)
-    //         arr2.push({ category: e, value: filter.length })
-    //     })
-    // }
     if (arr.length > 0) {
         Files.map(e => {
             var filter = arr.filter(i => i == e)
@@ -679,19 +639,7 @@ let pageLength = (number) => {
         $(`#listpage li:first-child`).addClass('active')
     }
 }
-// let search_data = () => {
-//     var data = show_data;
-//     var value = $('#txt_search').val();
-//     console.log(value)
-//     var arr = [];
-//     data.map(i => {
 
-//         var search = i.d_name.search(value)
-//         if (search >= 0) {
-//             arr.push(i)
-//         }
-//     })
-// }
 let gotodownload = (id_data) => {
     localStorage.setItem('id_data', id_data);
     // var name = datauser.username
@@ -699,8 +647,8 @@ let gotodownload = (id_data) => {
     // localStorage.setItem('value1', name ? name : val1);
     // localStorage.setItem('value2', id ? id : val2);
     window.location.href = './../detail/index.html';
-
 }
+
 $('#login').click(function () { loginPopup() })
 
 const Toast = Swal.mixin({
@@ -759,8 +707,6 @@ const loginPopup = () => {
 
                     localStorage.setItem('value1', username);
                     localStorage.setItem('value2', userid);
-
-                    // localStorage.setItem('userid', userid);
 
                     $('#login').fadeOut(function () {
                         $('#Profile').fadeIn(2500)
@@ -835,9 +781,6 @@ let logout = () => {
 }
 
 
-/**
-   * Mobile nav toggle
-   */
 $('.mobile-nav-toggle').on('click', function (e) {
     var content;
     if (val1 == 'administrator' && val2 == 'admin') {

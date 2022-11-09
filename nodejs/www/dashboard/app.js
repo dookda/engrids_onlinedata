@@ -2,7 +2,7 @@ let val1
 let val2
 
 // const urlapi = `https://engrids.soc.cmu.ac.th/api/ds-api`
-const urlapi = `http://localhost:3000/ds-api`
+// const urlapi = `http://localhost:3000/ds-api`
 
 let getCookie = (cname) => {
     let name = cname + "=";
@@ -48,17 +48,12 @@ let gotoLogout = () => {
     gotoIndex()
 }
 
-const loginPopup = () => {
-    let url = 'https://oauth.cmu.ac.th/v1/Authorize.aspx?response_type=code' +
-        '&client_id=JDxvGSrJv9RbXrxGQAsj0x4wKtm3hedf2qw3Cr2s' +
-        '&redirect_uri=http://localhost:3000/login/' +
-        '&scope=cmuitaccount.basicinfo' +
-        '&state=dashboard'
-    window.location.href = url;
-};
-
 let gotoIndex = () => {
     location.href = "./index.html";
+}
+
+let gotoProfile = () => {
+    location.href = "./../profile/index.html";
 }
 
 if (code) {
@@ -145,7 +140,7 @@ let numcategory = async (d) => {
 
 let valCategorys = []
 let load_data = () => {
-    axios.get(urlapi + '/getdata').then(r => {
+    axios.get('/ds-api/getdata').then(r => {
         var data = r.data.data;
 
         var arr = [];
@@ -172,44 +167,6 @@ let load_data = () => {
             numcategory(category)
         })
     })
-}
-
-
-let gotodownload = (id_data) => {
-    localStorage.setItem('id_data', id_data);
-    window.location.href = './../detail/index.html';
-
-}
-// $('#login').click(function () { loginPopup() })
-
-const datauser = {}
-
-
-
-let gotomanage = (id_data) => {
-    if (Object.values(datauser).length !== 0 || val1 || val2) {
-        var name = datauser.username
-        var id = datauser.userid
-        localStorage.setItem('value1', name ? name : val1);
-        localStorage.setItem('value2', id ? id : val2);
-        // window.open('./manage/index.html', '_blank');
-        window.location.href = './../manage/index.html';
-    } else {
-        loginPopup()
-    }
-
-}
-let gotoinput = (id_data) => {
-    if (Object.values(datauser).length !== 0 || val1 || val2) {
-        var name = datauser.username
-        var id = datauser.userid
-        localStorage.setItem('value1', name ? name : val1);
-        localStorage.setItem('value2', id ? id : val2);
-        window.location.href = './../input/index.html';
-    } else {
-        loginPopup()
-    }
-
 }
 
 $('.mobile-nav-toggle').on('click', function (e) {

@@ -77,23 +77,8 @@
                                 class="ff-noto">หน้าหลัก</span></a></li>
                     <li><a class="" href="./../infordata/index.html"><span class="ff-noto">ฐานข้อมูลสารสนเทศ</span></a>
                     </li>
-                    <li class="dropdown"><a class="active" href="#"><i class="bi bi-person-circle"
-                                style="font-size: 22px;"></i>
-                            &nbsp; <span id="username">User</span> <i class="bi bi-chevron-down"></i></a>
-                        <ul>
-                            <li><a href="#">Your Profile</a></li>
-                            <li class="dropdown "><a href="./../manage/index.html"><span
-                                        class="ff-noto">การจัดการข้อมูล</span> <i class="bi bi-chevron-right"></i></a>
-                                <ul>
-                                    <li><a href="index.html"><span class="ff-noto">นำเข้าข้อมูล</span></a></li>
-                                    <li><a href="./../manage/index.html"><span class="ff-noto">แก้ไข้ข้อมูล</span></a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li><a onclick="logout()" style="cursor: pointer;"><span class="ff-noto">ออกจากระบบ</span>
-                                    <i class="bi bi-door-closed" style="font-size: 18px;"></i></a></li>
-                        </ul>
-                    </li>
+                    <li id="profile"></li>
+                    <li id="login"></li>
                     <li><a class="nav-link scrollto" href="https://engrids.soc.cmu.ac.th/"><span
                                 class="ff-noto">ติดต่อเรา</span></a></li>
                 </ul>
@@ -114,7 +99,7 @@
                     <li><a href="./../manage/index.html"><span class="ff-noto">จัดการข้อมูล</span></a></li>
                     <li><span class="ff-noto">นำเข้าข้อมูล</span></li>
                 </ol>
-                <h2 class="ff-noto">นำเข้าข้อมูล</h2>
+                <!-- <h2 class="ff-noto">นำเข้าข้อมูล</h2> -->
 
             </div>
         </section><!-- End Breadcrumbs -->
@@ -123,7 +108,7 @@
 
                 <div class="section-title">
                     <!-- <h2>Input Data</h2> -->
-                    <h3 class="ff-noto">นำเข้า <span class="ff-noto">ข้อมูล</span></h3>
+                    <h3 class="ff-noto">ข้อมูล <span class="ff-noto">ผู้ใช้</span></h3>
                     <p></p>
                 </div>
                 <div class="d-flex justify-content-center pt-5 pb-4"
@@ -131,220 +116,28 @@
                     <div class="col-lg-10 mt-5 mt-lg-0">
                         <form method="post" role="form" class="forms-input" id="forminput">
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">ชุดข้อมูล <label class=""
+                                <label class="col-sm-2 col-form-label">ชื่อ-นามสกุล <label class=""
                                         style="color: rgb(233, 0, 0);">*</label></label>
                                 <div class="col-sm-10">
-                                    <input type="text" name="name" class="form-control" id="dname"
-                                        placeholder="ชื่อชุดข้อมูล" required>
+                                    <input type="text" name="name" class="form-control" id="std_name">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">หน่วยงาน/องค์กร <label class=""
+                                <label class="col-sm-2 col-form-label">รหัสนักศึกษา <label class=""
                                         style="color: rgb(233, 0, 0);">*</label></label>
                                 <div class="col-sm-10">
-                                    <input type="text" name="agency" class="form-control" id="dagency"
-                                        placeholder="หน่วยงาน/องค์กร" required>
+                                    <input type="text" name="name" class="form-control" id="std_id">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">คำอธิบาย/รายละเอียด</label>
+                                <label class="col-sm-2 col-form-label">คณะ <label class=""
+                                        style="color: rgb(233, 0, 0);">*</label></label>
                                 <div class="col-sm-10">
-                                    <textarea class="form-control" id="ddetail" rows="4"></textarea>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-sm-2">กลุ่มชุดข้อมูล <label class=""
-                                        style="color: rgb(233, 0, 0);">*</label></div>
-                                <div class="col-sm-10">
-                                    <div class="row">
-                                        <div class="col-sm">
-                                            <label class="label-container">การท่องเที่ยว
-                                                <input type="checkbox" value="การท่องเที่ยว">
-                                                <span class="checkmark"></span>
-                                            </label>
-                                            <label class="label-container">สาธาณสุขและสุขภาพ
-                                                <input type="checkbox" value="สาธาณสุขและสุขภาพ">
-                                                <span class="checkmark"></span>
-                                            </label>
-                                            <label class="label-container">การศึกษา
-                                                <input type="checkbox" value="การศึกษา">
-                                                <span class="checkmark"></span>
-                                            </label>
-                                            <label class="label-container">เศรษฐกิจ การเงิน และอุตสาหกรรม
-                                                <input type="checkbox" value="เศรษฐกิจการเงินและอุตสาหกรรม">
-                                                <span class="checkmark"></span>
-                                            </label>
-                                        </div>
-                                        <div class="col-sm">
-                                            <label class="label-container">เมืองและภูมิภาค
-                                                <input type="checkbox" value="เมืองและภูมิภาค">
-                                                <span class="checkmark"></span>
-                                            </label>
-                                            <label class="label-container">สังคมและสวัสดิการ
-                                                <input type="checkbox" value="สังคมและสวัสดิการ">
-                                                <span class="checkmark"></span>
-                                            </label>
-                                            <label class="label-container">การคมนาคมและโลจิตจิกส์
-                                                <input type="checkbox" value="การคมนาคมและโลจิตจิกส์">
-                                                <span class="checkmark"></span>
-                                            </label>
-                                            <label class="label-container">ศาสนา ศิลป และวัฒนธรรม
-                                                <input type="checkbox" value="ศาสนาศิลปและวัฒนธรรม">
-                                                <span class="checkmark"></span>
-                                            </label>
-                                        </div>
-                                        <div class="col-sm">
-                                            <label class="label-container">วิทยาศาสตร์เทคโนโลยีดิจิทัล และนวัตกรรม
-                                                <input type="checkbox" value="วิทยาศาสตร์เทคโนโลยีดิจิทัลและนวัตกรรม">
-                                                <span class="checkmark"></span>
-                                            </label>
-                                            <label class="label-container">โครงสร้างพื้นฐานระบบและพลังงาน
-                                                <input type="checkbox" value="โครงสร้างพื้นฐานระบบและพลังงาน">
-                                                <span class="checkmark"></span>
-                                            </label>
-                                            <label class="label-container">ทรัพยากรธรรมชาติและสิ่งแวดล้อม
-                                                <input type="checkbox" value="ทรัพยากรธรรมชาติและสิ่งแวดล้อม">
-                                                <span class="checkmark"></span>
-                                            </label>
-                                        </div>
-                                        <div class="col-sm">
-                                            <label class="label-container">การเมืองและการปกครอง
-                                                <input type="checkbox" value="การเมืองและการปกครอง">
-                                                <span class="checkmark"></span>
-                                            </label>
-                                            <label class="label-container">เกษตกรรมและการเกษตร
-                                                <input type="checkbox" value="เกษตกรรมและการเกษตร">
-                                                <span class="checkmark"></span>
-                                            </label>
-                                            <label class="label-container">สถิติทางการ
-                                                <input type="checkbox" value="สถิติทางการ">
-                                                <span class="checkmark"></span>
-                                            </label>
-                                            <label class="label-container" onchange="SH_other(this)">อื่นๆ
-                                                <input type="checkbox" value="other">
-                                                <span class="checkmark"></span>
-                                            </label>
-                                            <input type="text" name="" class="form-control w-100" id="Gother"
-                                                placeholder="ระบุกลุ่มชุดข้อมูล">
-                                        </div>
-                                    </div>
+                                    <input type="text" name="agency" class="form-control" id="std_org">
                                 </div>
                             </div>
 
-                            <div class="form-group row">
-                                <div class="col-sm-2">ประเภทชุดข้อมูล <label class=""
-                                        style="color: rgb(233, 0, 0);">*</label></div>
-                                <div class="col-sm-10">
-                                    <div class="form-inline">
-                                        <div class="form-group form-check-inline">
-                                            <input class="form-check-input" type="radio" name="DT_RadioOptions"
-                                                id="DT_Radio1" value="ข้อมูลระเบียน" required>
-                                            <label class="form-check-label" for="DT_Radio1">ข้อมูลระเบียน</label>
-                                        </div>
-                                        <div class="form-group form-check-inline">
-                                            <input class="form-check-input" type="radio" name="DT_RadioOptions"
-                                                id="DT_Radio2" value="ข้อมูลภูมิสารสนเทศเชิงพื้นที่" required>
-                                            <label class="form-check-label"
-                                                for="DT_Radio2">ข้อมูลภูมิสารสนเทศเชิงพื้นที่
-                                            </label>
-                                        </div>
-                                        <div class="form-group form-check-inline">
-                                            <input class="form-check-input" type="radio" name="DT_RadioOptions"
-                                                id="DT_Radio3" value="other" required>
-                                            <label class="form-check-label" for="DT_Radio3">อื่นๆ
-                                            </label>
 
-                                        </div>
-                                        <input type="text" name="" class="form-control" id="DT_other"
-                                            placeholder="ระบุประเภทชุดข้อมูล">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">ขอบเขตเชิงภูมิศาสตร์/เชิงพื้นที่</label>
-                                <div class="col-sm-10 ">
-                                    <select id="dbound" class="form-control" disabled>
-                                        <option hidden>เลือก...</option>
-                                        <option value="ระดับประเทศ">ระดับประเทศ</option>
-                                        <option value="ระดับจังหวัด">ระดับจังหวัด</option>
-                                        <option value="ระดับอำเภอ">ระดับอำเภอ</option>
-                                        <option value="ระดับตำบล">ระดับตำบล</option>
-                                        <option value="ไม่มี">ไม่มี</option>
-                                        <option value="other">อื่นๆ</option>
-                                    </select>
-                                    <input type="text" name="boundother" class="form-control w-100 mt-2" id="geo_other"
-                                        placeholder="ระบุขอบเขต">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">คำสำคัญ <label class=""
-                                        style="color: rgb(233, 0, 0);">*</label></label>
-                                <div class="col-sm-10">
-                                    <div class="d-flex flex-row flex-nowrap mb-2" id="addkeyword"></div>
-                                    <div class="form-inline">
-                                        <label class="sr-only" for="Keyword">Keyword</label>
-                                        <input type="text" class="form-control mb-2 mr-sm-2" id="keyword"
-                                            placeholder="Keyword">
-                                        <button type="button" class="btn btn-primary mb-2"
-                                            id="btn-keyword">เพิ่ม</button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-2 col-form-label">วันที่สร้าง metadata</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="Date" id="dmeta" placeholder="DD/MM/YYYY"
-                                    onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}">
-                            </div>
-                        </div> -->
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">แหล่งที่มา <label class=""
-                                        style="color: rgb(233, 0, 0);">*</label></label>
-                                <div class="col-sm-10">
-                                    <input type="text" name="source" class="form-control" id="dsource"
-                                        placeholder="แหล่งที่มา" required>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">รูปแบบข้อมูล</label>
-                                <div class="col-sm-10">
-                                    <label class="label-container mt-auto" onchange="inputFile(this,'file')">Files
-                                        <input type="checkbox" checked="checked" datafile_type="file">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <label class="label-container" onchange="inputFile(this,'link')">Link
-                                        <input type="checkbox" datafile_type="link">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <div class="p-2" style=" border: 2px dashed #9b9b9b;" id="linkupload">
-                                        <div class="d-flex flex-row justify-content-center mb-2"
-                                            style="font-size: 24px;">
-                                            <a type="button" data-toggle="tooltip" data-placement="top" title="Add link"
-                                                onclick="add_link()">
-                                                <i class="bi bi-plus"></i><span>เพิ่ม</span>
-                                            </a>&nbsp;&nbsp;
-                                            <a type="button" data-toggle="tooltip" data-placement="top"
-                                                title="Delete link" onclick="delete_link()">
-                                                <i class="bi bi-dash"></i><span>ลบ</span>
-                                            </a>
-                                        </div>
-                                        <hr>
-                                        <div id="listlink-file"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="form-group" id="fileupload">
-                                <span class="ff-noto" style="font-size:26;"><b>อัปโหลดไฟล์</b></span>
-                                <label class="" style="color: rgb(185, 185, 185); font-size: 4;">(
-                                    ขนาดไฟล์ไม่เกิน 15
-                                    MB )</label>
-                                <div class="file-loading">
-                                    <input id="input-fcount-1" name="input-fcount-1[]" type="file" multiple>
-                                </div>
-                                <div id="listdata-file"></div>
-                            </div>
                             <hr>
                             <!-- <div id="filedownload"></div> -->
                             <div class="d-flex justify-content-center">
