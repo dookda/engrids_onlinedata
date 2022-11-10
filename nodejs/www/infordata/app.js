@@ -684,12 +684,10 @@ let gotodownload = (id_data) => {
     window.location.href = './../detail/index.html';
 }
 
-
 let logout = () => {
     localStorage.clear();
     window.location.href = './../dashboard/index.html'
 }
-
 
 $('.mobile-nav-toggle').on('click', function (e) {
     var content;
