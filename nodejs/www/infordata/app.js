@@ -15,12 +15,64 @@ const Categories = urlParams.get('category')
 const Keyword = urlParams.get('keyword')
 const Fileform = urlParams.get('fileform')
 
-// console.log(userid, itemuser);
-// console.log(Search);
-// console.log(Page);
-// console.log(Categories);
-// console.log(Keyword);
-// console.log(Fileform);
+
+/////////
+
+let getCookie = (cname) => {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+const code = getCookie("open_code");
+const firstname_TH = getCookie("open_firstname_TH");
+const lastname_TH = getCookie("open_lastname_TH");
+const student_id = getCookie("open_student_id");
+const organization_name_TH = getCookie("open_organization_name_TH");
+
+let refreshPage = () => {
+    location.reload(true);
+}
+
+let gotoLogin = () => {
+    let url = 'https://oauth.cmu.ac.th/v1/Authorize.aspx?response_type=code' +
+        '&client_id=JDxvGSrJv9RbXrxGQAsj0x4wKtm3hedf2qw3Cr2s' +
+        '&redirect_uri=http://localhost:3000/login/' +
+        '&scope=cmuitaccount.basicinfo' +
+        '&state=infordata'
+    window.location.href = url;
+}
+
+let gotoLogout = () => {
+    document.cookie = "open_code=; max-age=0; path=/;";
+    document.cookie = "open_firstname_TH=; max-age=0; path=/;";
+    document.cookie = "open_lastname_TH=; max-age=0; path=/;";
+    document.cookie = "open_student_id=; max-age=0; path=/;";
+    document.cookie = "open_organization_name_TH=; max-age=0; path=/;";
+    gotoIndex()
+}
+
+let gotoIndex = () => {
+    location.href = "./../dashboard/index.html";
+}
+
+let gotoProfile = () => {
+    location.href = "./../profile/index.html";
+}
+
+let isDisabled;
+
+////////
 
 $(window).on('load', function () {
     if ($('#preloader').length) {
@@ -74,25 +126,8 @@ let reset_Fileform = () => {
     window.location.href = url
 }
 
-$(document).ready(function () {
-    var page = 1;
-    load_data(page)
-    if (val1) {
-        $('#login').hide(function () {
-            $('#Profile').show()
-            $('#username').text(val1)
-        })
-    }
-    // console.log(val1)
-    var date = "2021-10-26"
-    var New_date = new Date(date)
-    // console.log(new Date(date).toLocaleDateString('th-TH'));
-
-    let number2 = 1234.56789; // floating point example
-})
-
 let valCategorys = []
-let load_data = (page) => {
+let loadData = (disbtn) => {
     axios.get(urlapi + '/getdata').then(r => {
         console.log(r);
         var data = r.data.data;
@@ -397,11 +432,10 @@ let load_data = (page) => {
                 </p>
                 <span class="ff-noto">กลุ่มชุดข้อมูล: ${group}</span>
                 <div class="read-more">
-                    <a class="pointer" onclick="gotodownload('${i.d_id}')">Download</a>
+                    <button class="btn btn-success" id="downloadBtn" onclick="gotodownload('${i.d_id}')" ${code == '' ? 'disabled' : ''} >Download</button>
                 </div>
             </div>`)
                 $(`#content-data`).append(content)
-
             })
         } else {
             var select = arr.slice(0, 4)
@@ -421,7 +455,7 @@ let load_data = (page) => {
                     <li class="d-flex align-items-center"><i class="bi bi-person"></i>${i.d_username}</li>
                     <li class="d-flex align-items-center"><i class="bi bi-clock"></i><span>${date}</span>
                     </li>
-                    <li class="d-flex align-items-center"><i class="bi bi-download"></i> <a
+                    <li class="d-flex align-items-center"><i class="bi bi-download" ></i> <a
                             href="blog-single.html">${i.d_sd} download</a></li>
                 </ul>
             </div>
@@ -432,11 +466,11 @@ let load_data = (page) => {
                 </p>
                 <span class="ff-noto">กลุ่มชุดข้อมูล: ${group}</span>
                 <div class="read-more">
-                    <a class="pointer" onclick="gotodownload('${i.d_id}')">Download</a>
+                    <button class="btn btn-success" id="downloadBtn" onclick="gotodownload('${i.d_id}')" ${code == '' ? 'disabled' : ''}>Download</button>
                 </div>
             </div>`)
                 $(`#content-data`).append(content)
-
+                console.log(code);
             })
         }
         if (arr.length == 0) {
@@ -452,6 +486,7 @@ let load_data = (page) => {
 
     })
 }
+
 
 let genCategory = (data) => {
     let category = [
@@ -649,132 +684,7 @@ let gotodownload = (id_data) => {
     window.location.href = './../detail/index.html';
 }
 
-$('#login').click(function () { loginPopup() })
 
-const Toast = Swal.mixin({
-    toast: true,
-    position: 'top-end',
-    showConfirmButton: false,
-    timer: 2000,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer)
-        toast.addEventListener('mouseleave', Swal.resumeTimer)
-    }
-})
-
-const datauser = {}
-
-const loginPopup = () => {
-    Swal.fire({
-        title: 'เข้าสู่ระบบ',
-        html:
-            '<input id="username" class="swal2-input" type="text" placeholder="Username">' +
-            '<input id="password" class="swal2-input" type="password" placeholder="Password">',
-        focusConfirm: true,
-        customClass: {
-            container: 'ff-noto',
-            title: 'ff-noto',
-        },
-        showCloseButton: false,
-        confirmButtonText: 'เข้าสู่ระบบ',
-        confirmButtonColor: '#3085d6',
-        footer: '<a href=""><b>ลืมรหัสผ่าน</b></a><hr class="perpendicular-line"><a href="./../register/index.html"><b>สมัครผู้ใช้ใหม่</b></a>',
-
-        showCancelButton: false,
-        preConfirm: async () => {
-            const username = Swal.getPopup().querySelector('#username').value
-            const password = Swal.getPopup().querySelector('#password').value
-            if (!loginPopup || !password) {
-                Swal.showValidationMessage(`Please enter username and password`)
-            }
-            return { username: username, password: password }
-
-        },
-    }).then((result) => {
-        if (result.isConfirmed) {
-            let data = {
-                username: result.value.username,
-                password: result.value.password
-            }
-            axios.post("https://engrids.soc.cmu.ac.th/api/fuser-api/userid", data).then(r => {
-                // console.log(r.data.data)
-                if (r.data.data !== 'false') {
-                    var userid = r.data.data[0].id_user
-                    var username = r.data.data[0].username
-                    datauser["userid"] = userid
-                    datauser["username"] = username
-
-                    localStorage.setItem('value1', username);
-                    localStorage.setItem('value2', userid);
-
-                    $('#login').fadeOut(function () {
-                        $('#Profile').fadeIn(2500)
-                        $('#username').text(username)
-                    })
-
-                    Toast.fire({
-                        icon: 'success',
-                        title: 'เข้าสู่ระบบสำเร็จ',
-                        customClass: {
-                            container: 'ff-noto',
-                            title: 'ff-noto',
-                            confirmButton: 'btn btn-secondary',
-                        },
-                    })
-
-                } else {
-                    Swal.fire({
-                        title: 'ไม่สามารถเข้าสู่เข้าระบบได้!',
-                        text: 'กรุณาตรวจสอบชื่อผู้ใช่/รหัสผ่าน ให้ถูกต้อง',
-                        icon: 'error',
-                        // iconColor: ''
-                        confirmButtonText: 'ปิด',
-                        // footer: '<a href=""><b>เข้าสู้ระบบ</b></a>',
-                        customClass: {
-                            container: 'ff-noto',
-                            title: 'ff-noto',
-                            confirmButton: 'btn btn-secondary',
-                        },
-                        preConfirm: async () => {
-                            loginPopup()
-                        }
-                    })
-                }
-            })
-        } else if (
-            result.dismiss === Swal.DismissReason.cancel
-        ) {
-            window.location.reload()
-        }
-    })
-};
-
-let gotomanage = (id_data) => {
-    if (Object.values(datauser).length !== 0 || val1 || val2) {
-        var name = datauser.username
-        var id = datauser.userid
-        localStorage.setItem('value1', name ? name : val1);
-        localStorage.setItem('value2', id ? id : val2);
-        // window.open('./manage/index.html', '_blank');
-        window.location.href = '././manage/index.html';
-    } else {
-        loginPopup()
-    }
-
-}
-let gotoinput = (id_data) => {
-    if (Object.values(datauser).length !== 0 || val1 || val2) {
-        var name = datauser.username
-        var id = datauser.userid
-        localStorage.setItem('value1', name ? name : val1);
-        localStorage.setItem('value2', id ? id : val2);
-        window.location.href = './../input/index.html';
-    } else {
-        loginPopup()
-    }
-
-}
 let logout = () => {
     localStorage.clear();
     window.location.href = './../dashboard/index.html'
@@ -824,4 +734,14 @@ $('.mobile-nav-toggle').on('click', function (e) {
         // showCancelButton: true,
     })
 })
+
+if (code) {
+    $('#profile').html(`<a href="#" onclick="gotoProfile()"><i class="bx bxs-user-detail"></i><span class="ff-noto">${firstname_TH}</span></a>`)
+    $('#login').html(`<a href="#" onclick="gotoLogout()"><i class="bx bx-log-out"></i><span class="ff-noto">ออกจากระบบ</span></a>`)
+    loadData(false)
+} else {
+    $('#login').html(`<a href="#" onclick="gotoLogin()"><i class="bx bx-exit"></i><span class="ff-noto">เข้าสู่ระบบ</span></a>`);
+    // gotoLogin();
+    loadData(true)
+}
 
