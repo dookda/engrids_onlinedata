@@ -91,7 +91,9 @@ app.get('/ds-api/get', (req, res) => {
 })
 app.get('/ds-api/getdata', (req, res) => {
     // const { staid } = req.body
-    datapool.query(`SELECT d_name,d_detail,d_groups,d_keywords,d_id,d_username,d_tnow,d_sd,d_datafiles  FROM datasource where d_access='publish' order by d_tnow desc;`, (e, r) => {
+    let sql = `SELECT d_name,d_detail,d_groups,d_keywords,d_id,d_username,d_tnow,d_sd,d_datafiles  FROM datasource where d_access='publish' order by d_tnow desc;`
+    datapool.query(sql, (e, r) => {
+        console.log(r);
         res.status(200).json({
             data: r.rows
         })

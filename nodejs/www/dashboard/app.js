@@ -56,15 +56,7 @@ let gotoProfile = () => {
     location.href = "./../profile/index.html";
 }
 
-if (code) {
-    $('#profile').html(`<a href="#" onclick="gotoProfile()"><i class="bx bxs-user-detail"></i><span class="ff-noto">${firstname_TH}</span></a>`)
-    $('#login').html(`<a href="#" onclick="gotoLogout()"><i class="bx bx-log-out"></i><span class="ff-noto">ออกจากระบบ</span></a>`)
 
-} else {
-    $('#login').html(`<a href="#" onclick="gotoLogin()"><i class="bx bx-exit"></i><span class="ff-noto">เข้าสู่ระบบ</span></a>`);
-    // gotoLogin();
-
-}
 
 $(window).on('load', function () {
     if ($('#preloader').length) {
@@ -73,11 +65,6 @@ $(window).on('load', function () {
         });
     }
 });
-
-
-$(document).ready(function () {
-    load_data()
-})
 
 let gotodata = (txt) => {
     location.href = './../infordata/index.html?page=1&category=' + txt;
@@ -147,7 +134,6 @@ let load_data = () => {
         var category = [];
         var arrKeyword = [];
         var arrfileform = [];
-        var New_post = data.slice(0, 4)
 
         data.map(i => {
 
@@ -213,5 +199,16 @@ $('.mobile-nav-toggle').on('click', function (e) {
     })
 })
 
+
+if (code) {
+    $('#profile').html(`<a href="#" onclick="gotoProfile()"><i class="bx bxs-user-detail"></i><span class="ff-noto">${firstname_TH}</span></a>`)
+    $('#login').html(`<a href="#" onclick="gotoLogout()"><i class="bx bx-log-out"></i><span class="ff-noto">ออกจากระบบ</span></a>`)
+    load_data()
+} else {
+    $('#login').html(`<a href="#" onclick="gotoLogin()"><i class="bx bx-exit"></i><span class="ff-noto">เข้าสู่ระบบ</span></a>`);
+    // gotoLogin();
+    load_data()
+
+}
 
 AOS.init();
